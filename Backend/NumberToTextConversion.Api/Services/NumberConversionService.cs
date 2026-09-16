@@ -75,7 +75,7 @@ public class NumberConversionService : INumberConversionService
 
         var hundred = numbers.Count > 0 ? numbers[0] : 0;
         if (hundred > 0)
-            result += HundredToText(hundred, result.Length > 0);
+            result += HundredToText(hundred, true);
 
         return result.Trim();
     }
@@ -93,7 +93,7 @@ public class NumberConversionService : INumberConversionService
             number %= 100;
         }
 
-        if (hasThousands || result.Length > 0)
+        if (hasThousands && result.Length > 0)
             result += "and ";
 
         if (number / 10 >= 2)
