@@ -1,18 +1,27 @@
 <template>
-  <p>
-    Input:
-    <input
-      type="text"
-      @keyup.enter="fetchOutput"
-      v-model="inputValue"
-      placeholder="Enter a number"
-    />
-    &nbsp;
-    <button type="button" @click="fetchOutput" :disabled="invalidData">
-      Convert
-    </button>
-  </p>
-  <p>Output: {{ outputValue }}</p>
+  <div class="row">
+    <div class="col-1"><label class="form-label fw-bold">Input:</label></div>
+    <div class="col-6">
+      <input
+        type="text"
+        @keyup.enter="fetchOutput"
+        v-model="inputValue"
+        placeholder="Enter a number and then press Enter or click Convert"
+        class="form-control"
+      />
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-success" @click="fetchOutput" :disabled="invalidData">
+        Convert
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-1"><label class="form-label fw-bold">Output:</label></div>
+    <div class="col-11" :class="{ 'text-danger': errorOccurred }">
+      {{ outputValue }}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -24,6 +33,7 @@ export default {
       inputValue: "",
       outputValue: "",
       invalidData: true,
+      errorOccurred: false,
     };
   },
 
@@ -35,6 +45,7 @@ export default {
 
   methods: {
     async fetchOutput() {
+      this.errorOccurred = true;
       if (this.invalidData) {
         this.outputValue = "A number is required.";
         return;
@@ -53,6 +64,7 @@ export default {
         }
 
         this.outputValue = await response.text();
+        this.errorOccurred = false;
       } catch (error) {
         this.outputValue = error.message;
       }
