@@ -1,0 +1,46 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore .NET dependencies
+        run: dotnet restore Backend/NumberConversionApi.sln
+
+      - name: Build .NET solution
+        run: dotnet build Backend/NumberConversionApi.sln --configuration Release --no-restore
+
+      - name: Run .NET tests
+        run: dotnet test Backend/NumberToTextConversion.Test/NumberToTextConversion.Test.csproj --configuration Release --no-build --verbosity normal
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+
+      - name: Install frontend dependencies
+        working-directory: Frontend
+        run: npm install
+
+      - name: Type-check frontend
+        working-directory: Frontend
+        run: npm run type-check
+
+      - name: Build frontend
+        working-directory: Frontend
+        run: npm run build
