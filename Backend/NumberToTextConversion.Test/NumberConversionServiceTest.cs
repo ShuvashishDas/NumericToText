@@ -5,15 +5,17 @@ namespace NumberToTextConversion.Test;
 public class NumberConversionServiceTest
 {
     [Theory]
-    [InlineData("0", "zero dollar")]
-    [InlineData("1", "one dollar")]
-    [InlineData("3", "three dollars")]
-    [InlineData("10", "ten dollars")]
-    [InlineData("21", "twenty-one dollars")]
-    [InlineData("105", "one hundred and five dollars")]
-    [InlineData("569", "five hundred and sixty-nine dollars")]
-    [InlineData("1000", "one thousand dollars")]
-    [InlineData("1234", "one thousand two hundred and thirty-four dollars")]
+    [InlineData("0", "ZERO DOLLAR")]
+    [InlineData("1", "ONE DOLLAR")]
+    [InlineData("3", "THREE DOLLARS")]
+    [InlineData("10", "TEN DOLLARS")]
+    [InlineData("21", "TWENTY-ONE DOLLARS")]
+    [InlineData("105", "ONE HUNDRED AND FIVE DOLLARS")]
+    [InlineData("569", "FIVE HUNDRED AND SIXTY-NINE DOLLARS")]
+    [InlineData("1000", "ONE THOUSAND DOLLARS")]
+    [InlineData("1234", "ONE THOUSAND TWO HUNDRED AND THIRTY-FOUR DOLLARS")]
+    [InlineData("1234.35", "ONE THOUSAND TWO HUNDRED AND THIRTY-FOUR DOLLARS AND THIRTY-FIVE CENTS")]
+    [InlineData("1234567890.35", "ONE BILLION TWO HUNDRED THIRTY-FOUR MILLION FIVE HUNDRED SIXTY-SEVEN THOUSAND EIGHT HUNDRED AND NINETY DOLLARS AND THIRTY-FIVE CENTS")]
     public void ConvertTest(string numberAsString, string expectedText)
     {
         var service = new NumberConversionService();

@@ -14,7 +14,7 @@ public class NumberConversionController(INumberConversionService service) : Cont
         try
         {
             var totalAmountInText = _service.Convert(value);
-            return Ok(totalAmountInText.ToUpper());
+            return Ok(totalAmountInText);
         }
         catch (ArgumentException ex)
         {

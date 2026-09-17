@@ -17,7 +17,7 @@ public class NumberConversionService : INumberConversionService
         if (decimalPart > 0)
             totalAmountInText += $" and {HundredToText(decimalPart)} cents";
 
-        return totalAmountInText;
+        return totalAmountInText.ToUpper();
     }
 
     private bool ValidateNumber(string input)
